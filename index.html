@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscripción al Torneo de Inversiones</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --primary-color-hover: #2980b9;
+            --success-color: #2ecc71;
+            --error-color: #e74c3c;
+            --text-color-main: #333;
+            --text-color-light: #777;
+            --border-color: #ddd;
+            --background-light: #f9f9f9;
+            --background-white: #fff;
+            --font-family-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            font-family: var(--font-family-main);
+            line-height: 1.6;
+            color: var(--text-color-main);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            background-color: #f9f9f9;
+            border-radius: 8px; /* Consider var(--border-radius-default) if you use it elsewhere */
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="hidden"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .terms {
+            height: 150px;
+            overflow-y: scroll;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: var(--background-white);
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .checkbox-group input {
+            margin-right: 10px;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: var(--primary-color-hover);
+        }
+        .hidden {
+            display: none;
+        }
+        .error {
+            color: var(--error-color);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        #progress-container {
+            margin-bottom: 30px;
+        }
+        .progress-step {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        .progress-step::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--border-color);
+            z-index: 1;
+        }
+        .step {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #fff;
+            position: relative;
+            z-index: 2;
+        }
+        .step.active {
+            background-color: var(--primary-color);
+        }
+        .step.completed {
+            background-color: var(--success-color);
+        }
+        .step-label {
+            position: absolute;
+            top: 35px;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: var(--text-color-light);
+            white-space: nowrap;
+        }
+        #confirmation-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 4px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .paypal-button {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Inscripción al Torneo de Inversiones</h1>
+        
+        <div id="progress-container">
+            <div class="progress-step">
+                <div class="step active" id="step1" aria-current="step">1
+                    <span class="step-label">Datos personales</span>
+                </div>
+                <div class="step" id="step2">2
+                    <span class="step-label">Términos y condiciones</span>
+                </div>
+                <div class="step" id="step3">3
+                    <span class="step-label">Pago</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="step1-content">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required aria-describedby="nombre-error">
+                <div class="error" id="nombre-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" required aria-describedby="apellido-error">
+                <div class="error" id="apellido-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="edad">Edad:</label>
+                <input type="number" id="edad" name="edad" min="18" required aria-describedby="edad-error">
+                <div class="error" id="edad-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email" required aria-describedby="email-error">
+                <div class="error" id="email-error"></div>
+            </div>
+            
+            <div class="btn-container">
+                <button type="button" id="next-step1" class="btn">Continuar</button>
+            </div>
+        </div>
+        
+        <!-- Paso 2: Términos y condiciones -->
+        <div id="step2-content" class="hidden">
+            <div class="form-group">
+                <label>Términos y Condiciones:</label>
+                <div class="terms">
+                    <h3>TÉRMINOS Y CONDICIONES DEL TORNEO DE INVERSIONES</h3>
+                    <p>Al participar en este torneo, usted acepta los siguientes términos y condiciones:</p>
+                    <ol>
+                        <li>El torneo se llevará a cabo en la plataforma "How The Market Works".</li>
+                        <li>La inscripción es personal e intransferible.</li>
+                        <li>El pago de la inscripción no es reembolsable.</li>
+                        <li>Cada participante recibirá una clave personal para acceder al torneo.</li>
+                        <li>Los organizadores se reservan el derecho de modificar las fechas y condiciones del torneo.</li>
+                        <li>Los datos proporcionados serán utilizados únicamente para fines relacionados con el torneo.</li>
+                        <li>Al finalizar la inscripción, recibirá un correo electrónico con las instrucciones y su clave de acceso.</li>
+                        <li>Cualquier intento de fraude resultará en la descalificación inmediata.</li>
+                        <li>Para participar, debe ser mayor de 18 años.</li>
+                        <li>Los premios estarán sujetos a las condiciones específicas que se detallarán en las instrucciones del torneo.</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="accept-terms" name="accept-terms" required aria-describedby="terms-error">
+                <label for="accept-terms">He leído y acepto los términos y condiciones</label>
+            </div>
+            <div class="error" id="terms-error"></div>
+            
+            <div class="btn-container">
+                <button type="button" id="prev-step2" class="btn">Atrás</button>
+                <button type="button" id="next-step2" class="btn">Continuar al pago</button>
+            </div>
+        </div>
+        
+        <!-- Paso 3: Pago con PayPal -->
+        <div id="step3-content" class="hidden">
+            <div class="form-group">
+                <h3>Resumen de inscripción</h3>
+                <p>Nombre: <span id="summary-name"></span></p>
+                <p>Correo electrónico: <span id="summary-email"></span></p>
+                <p>Monto de inscripción: <span id="inscription-fee">$25.00</span></p>
+            </div>
+            
+            <!-- Formulario de PayPal Standard HTML -->
+            <form id="paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" class="paypal-button">
+                <input type="hidden" name="cmd" value="_xclick">
+                <input type="hidden" name="business" value="TU_EMAIL_PAYPAL@email.com"> <!-- CRITICAL: Update with your PayPal business email -->
+                <input type="hidden" name="lc" value="ES">
+                <input type="hidden" name="item_name" value="Inscripción al Torneo de Inversiones">
+                <input type="hidden" name="amount" value="25.00">
+                <input type="hidden" name="currency_code" value="USD">
+                <input type="hidden" name="button_subtype" value="services">
+                <input type="hidden" name="no_note" value="0">
+                <!-- <input type="hidden" name="cn" value="Agrega instrucciones especiales al vendedor:"> Optional: Label for the note field on PayPal -->
+                <input type="hidden" name="no_shipping" value="1">
+                <input type="hidden" name="rm" value="1">
+                <input type="hidden" name="return" value="https://tudominio.com/gracias.html"> <!-- CRITICAL: Update with your actual success URL -->
+                <input type="hidden" name="cancel_return" value="https://tudominio.com/cancelado.html"> <!-- CRITICAL: Update with your actual cancel URL -->
+                <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">
+                
+                <!-- Campos personalizados para guardar información del cliente -->
+                <input type="hidden" id="custom-field" name="custom" value="">
+                
+                <div class="btn-container">
+                    <button type="button" id="prev-step3" class="btn">Atrás</button>
+                    <input type="image" src="https://www.paypalobjects.com/es_XC/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
+                </div>
+            </form>
+        </div>
+        
+        <div id="confirmation-message" class="hidden">
+            ¡Gracias por tu inscripción! Hemos enviado las instrucciones y tu clave personalizada al correo electrónico proporcionado.
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

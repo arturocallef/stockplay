@@ -1,2 +1,2 @@
 # stockplay
-Torneos
+Torneos de negocios
